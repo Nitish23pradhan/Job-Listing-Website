@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerNest | Complete Job Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="#home" aria-label="CareerNest home">
+        <span class="brand-mark">CN</span>
+        <span>CareerNest</span>
+      </a>
+
+      <div class="nav-links" aria-label="Primary navigation">
+        <a href="#jobs">Jobs</a>
+        <a href="#categories">Categories</a>
+        <a href="#companies">Companies</a>
+        <a href="#resources">Resources</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">T</button>
+        <a class="post-link" href="#post-job">Post a Job</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">India's student-friendly job portal</p>
+        <h1>Discover internships, fresher roles, and senior jobs in one place.</h1>
+        <p class="hero-copy">
+          Search curated openings, compare companies, save jobs, and filter by role, location, category, work mode, and experience level.
+        </p>
+
+        <form class="hero-search" id="heroSearchForm">
+          <label class="sr-only" for="quickSearch">Search jobs</label>
+          <input id="quickSearch" type="search" placeholder="Search by title, company, skill, or keyword">
+          <button type="submit">Search Jobs</button>
+        </form>
+
+        <div class="hero-tags" aria-label="Popular searches">
+          <button type="button" data-keyword-chip="frontend">Frontend</button>
+          <button type="button" data-keyword-chip="data">Data</button>
+          <button type="button" data-keyword-chip="marketing">Marketing</button>
+          <button type="button" data-keyword-chip="remote">Remote</button>
+        </div>
+      </div>
+
+      <aside class="hero-board" aria-label="Hiring highlights">
+        <div class="hero-card hero-card-large">
+          <span class="metric">72</span>
+          <span>verified openings</span>
+        </div>
+        <div class="hero-mini-grid">
+          <div class="hero-card">
+            <span class="metric">18</span>
+            <span>remote jobs</span>
+          </div>
+          <div class="hero-card">
+            <span class="metric">14</span>
+            <span>hiring cities</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <p class="eyebrow">Live hiring</p>
+          <h3>Top companies are reviewing applications today.</h3>
+          <ul>
+            <li>CloudMint shortlisted 18 candidates</li>
+            <li>PixelWorks added 4 frontend openings</li>
+            <li>FinEdge Labs is hiring product talent</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <section class="stats-strip" aria-label="Platform statistics">
+      <div>
+        <strong>24k+</strong>
+        <span>monthly applicants</span>
+      </div>
+      <div>
+        <strong>420+</strong>
+        <span>partner companies</span>
+      </div>
+      <div>
+        <strong>92%</strong>
+        <span>mobile friendly score</span>
+      </div>
+      <div>
+        <strong>10 min</strong>
+        <span>average apply time</span>
+      </div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Browse by field</p>
+          <h2>Popular job categories</h2>
+        </div>
+        <p class="section-copy">Choose a category to instantly filter the job board below.</p>
+      </div>
+      <div class="category-grid" id="categoryCards"></div>
+    </section>
+
+    <section class="feature-band">
+      <div>
+        <p class="eyebrow">Built for real job search</p>
+        <h2>Everything a candidate needs before applying</h2>
+      </div>
+      <div class="feature-grid">
+        <article>
+          <span class="feature-icon">01</span>
+          <h3>Smart filters</h3>
+          <p>Filter by keyword, location, category, experience, work mode, and sort by latest, salary, or company.</p>
+        </article>
+        <article>
+          <span class="feature-icon">02</span>
+          <h3>Saved jobs</h3>
+          <p>Save interesting roles in the browser and review them from the dashboard without signing in.</p>
+        </article>
+        <article>
+          <span class="feature-icon">03</span>
+          <h3>Detailed modals</h3>
+          <p>Open job details with skills, responsibilities, benefits, company information, and application status.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section jobs-section" id="jobs">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Open positions</p>
+          <h2>Explore latest jobs</h2>
+        </div>
+        <p id="resultCount" class="result-count" aria-live="polite"></p>
+      </div>
+
+      <div class="job-layout">
+        <aside class="filter-panel" aria-label="Job filters">
+          <div class="filter-header">
+            <h3>Filters</h3>
+            <button class="text-button" id="resetFilters" type="button">Clear all</button>
+          </div>
+
+          <div class="field">
+            <label for="keywordFilter">Keyword</label>
+            <input id="keywordFilter" type="search" placeholder="Frontend, analyst, design">
+          </div>
+          <div class="field">
+            <label for="locationFilter">Location</label>
+            <select id="locationFilter">
+              <option value="">All locations</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="categoryFilter">Category</label>
+            <select id="categoryFilter">
+              <option value="">All categories</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="experienceFilter">Experience</label>
+            <select id="experienceFilter">
+              <option value="">All levels</option>
+              <option value="Fresher">Fresher</option>
+              <option value="Mid-Level">Mid-Level</option>
+              <option value="Senior">Senior</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="workModeFilter">Work mode</label>
+            <select id="workModeFilter">
+              <option value="">All modes</option>
+            </select>
+          </div>
+
+          <div class="salary-filter">
+            <div class="range-label">
+              <label for="salaryFilter">Minimum salary</label>
+              <span id="salaryValue">Any</span>
+            </div>
+            <input id="salaryFilter" type="range" min="0" max="30" value="0" step="1">
+          </div>
+
+          <div class="saved-panel">
+            <h3>Saved jobs</h3>
+            <p id="savedCount">0 saved jobs</p>
+            <div id="savedPreview" class="saved-preview"></div>
+          </div>
+        </aside>
+
+        <div class="job-results">
+          <div class="toolbar">
+            <div class="status-row">
+              <span id="pageStatus"></span>
+              <span id="filterSummary"></span>
+            </div>
+            <div class="field compact-field">
+              <label for="sortFilter">Sort</label>
+              <select id="sortFilter">
+                <option value="latest">Latest first</option>
+                <option value="salary">Highest salary</option>
+                <option value="company">Company name</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="job-grid" id="jobGrid"></div>
+          <div class="empty-state" id="emptyState" hidden>
+            <h3>No jobs found</h3>
+            <p>Try changing your keyword, location, category, work mode, salary, or experience filter.</p>
+          </div>
+
+          <div class="pagination" id="pagination" aria-label="Pagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="companies">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Featured employers</p>
+          <h2>Companies hiring now</h2>
+        </div>
+        <p class="section-copy">A quick view of teams with active openings on CareerNest.</p>
+      </div>
+      <div class="company-grid" id="companyGrid"></div>
+    </section>
+
+    <section class="section resources" id="resources">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Career resources</p>
+          <h2>Prepare before you apply</h2>
+        </div>
+      </div>
+      <div class="resource-grid">
+        <article>
+          <span>Guide</span>
+          <h3>How to make a fresher resume stand out</h3>
+          <p>Focus on projects, measurable learning, and a clean one-page format.</p>
+        </article>
+        <article>
+          <span>Checklist</span>
+          <h3>Before clicking Apply Now</h3>
+          <p>Review the skills, company page, role expectations, and your portfolio links.</p>
+        </article>
+        <article>
+          <span>Interview</span>
+          <h3>Common questions for internships</h3>
+          <p>Prepare project explanations, problem-solving stories, and basic technical answers.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split-section" id="post-job">
+      <div>
+        <p class="eyebrow">For recruiters</p>
+        <h2>Post a job opening and reach job-ready candidates.</h2>
+        <p class="section-copy">This front-end demo includes a recruiter-facing section to make the website feel complete for both applicants and employers.</p>
+      </div>
+      <form class="mini-form">
+        <label>
+          Company name
+          <input type="text" placeholder="Your company">
+        </label>
+        <label>
+          Hiring email
+          <input type="email" placeholder="hr@company.com">
+        </label>
+        <label>
+          Job role
+          <input type="text" placeholder="Frontend Developer">
+        </label>
+        <button type="button">Create Draft</button>
+      </form>
+    </section>
+
+    <section class="section faq" id="faq">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Questions</p>
+          <h2>Frequently asked questions</h2>
+        </div>
+      </div>
+      <div class="faq-list">
+        <details open>
+          <summary>Does this website use real job data?</summary>
+          <p>It uses sample JavaScript data so the project can run without setup, API keys, or backend hosting.</p>
+        </details>
+        <details>
+          <summary>Can the saved jobs stay after refreshing?</summary>
+          <p>Yes. Saved jobs are stored in browser local storage.</p>
+        </details>
+        <details>
+          <summary>Can this be deployed on GitHub Pages?</summary>
+          <p>Yes. Upload the four files and enable GitHub Pages from repository settings.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <a class="brand footer-brand" href="#home">
+        <span class="brand-mark">CN</span>
+        <span>CareerNest</span>
+      </a>
+      <p>CareerNest is a responsive job portal project with dynamic filters, job cards, saved roles, and detailed job modals.</p>
+    </div>
+    <div>
+      <h3>Explore</h3>
+      <a href="#jobs">Jobs</a>
+      <a href="#categories">Categories</a>
+      <a href="#companies">Companies</a>
+    </div>
+    <div>
+      <h3>Project</h3>
+      <a href="#resources">Resources</a>
+      <a href="#post-job">Post a Job</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <form class="newsletter">
+      <h3>Get job alerts</h3>
+      <input type="email" placeholder="Enter your email">
+      <button type="button">Subscribe</button>
+    </form>
+  </footer>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Close details">x</button>
+      <p class="eyebrow" id="modalCompany"></p>
+      <h2 id="modalTitle"></h2>
+      <p class="modal-meta" id="modalMeta"></p>
+      <p id="modalDescription"></p>
+      <div class="modal-columns">
+        <div>
+          <h3>Responsibilities</h3>
+          <ul id="modalResponsibilities"></ul>
+        </div>
+        <div>
+          <h3>Role details</h3>
+          <ul id="modalDetails"></ul>
+        </div>
+      </div>
+      <h3>Skills</h3>
+      <div class="skill-list" id="modalSkills"></div>
+      <button class="apply-button" type="button">Apply Now</button>
+    </article>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
